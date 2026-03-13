@@ -1,0 +1,66 @@
+name: Deploy Frontend (Vercel)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/ops-web/**"
+      - "apps/arki-web/**"
+  workflow_dispatch:
+
+jobs:
+  deploy-ops-web:
+    name: Deploy ops-web to Vercel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: apps/ops-web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: apps/ops-web
+        run: npm ci
+
+      - name: Deploy to Vercel
+        working-directory: apps/ops-web
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID_OPS: ${{ secrets.VERCEL_PROJECT_ID_OPS }}
+        run: |
+          npm install -g vercel
+          vercel --token $VERCEL_TOKEN --prod \
+            --scope $VERCEL_ORG_ID \
+            --yes
+
+  deploy-arki-web:
+    name: Deploy arki-web to Vercel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: apps/arki-web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: apps/arki-web
+        run: npm ci
+
+      - name: Deploy to Vercel
+        working-directory: apps/arki-web
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID_ARKI: ${{ secrets.VERCEL_PROJECT_ID_ARKI }}
+        run: |
+          npm install -g vercel
+          vercel --token $VERCEL_TOKEN --prod \
+            --scope $VERCEL_ORG_ID \
+            --yes

@@ -1,0 +1,75 @@
+================================================================
+프로젝트명: Arkistore Operations Automation System
+================================================================
+
+■ 프로젝트 유형
+  기업 업무 자동화 웹 플랫폼 (풀스택 모노레포)
+  - Arkistore 업무 시스템 + JH 운영관리 대시보드 통합
+
+■ 프로젝트 목적
+  Arkistore(가구/인테리어 업체)의 물류·영업·판매매니저 실무 업무를 웹앱으로
+  디지털화하고, 운영 관제를 JH 운영대시보드에서 통합 관리하는 이중 구조 시스템.
+
+■ 기술 스택
+  - Frontend (ops-web) : Next.js 14 (App Router), TypeScript, TailwindCSS
+  - Frontend (arki-web): Next.js 14 (App Router), TypeScript, TailwindCSS, Recharts
+  - Backend (api)      : FastAPI 0.110+, Python 3.11+
+  - Database           : PostgreSQL 15+, SQLAlchemy 2.x, Alembic
+  - 인증               : JWT (httpOnly cookie, bcrypt)
+  - 외부 연동          : GitHub API, Google Sheets API, S3-compatible Storage
+  - 컨테이너           : Docker + docker-compose + Nginx
+
+■ 시스템 구성
+  ops-web  (포트 3000) : JH 운영관리 대시보드 — 프로젝트/이슈/로그/배포 관리
+  arki-web (포트 3001) : Arkistore 업무 시스템 — 물류/영업/판매매니저 전 메뉴
+  api      (포트 8000) : FastAPI 백엔드 (공통)
+
+■ 핵심 기능
+  [Arkistore 업무 시스템]
+  - 물류: 발주 요청/발주서/인보이스/BL/입고 관리
+  - 영업: 고객 문의/상담/채널/VIP 관리
+  - 판매매니저: 상담/계약/수기계약/배송/CAPA/해피콜
+  - 메인 대시보드: recharts 차트 3종 + 60초 자동 새로고침
+  - CSV 내보내기: customers, leads, contracts, purchase-requests, purchase-orders, deliveries
+  - 알림 벨: 60초 polling 기반 재고부족/신규문의/CAPA 알림
+
+  [JH 운영관리 대시보드]
+  - 프로젝트 등록/상태 관리
+  - 오류 수집 및 GitHub 이슈 자동 연동
+  - 관리자 액션 로그
+  - 운영 모드 분기 (일반/수동지원/에이전트탑재/혼합)
+
+■ 개발 진행률: ████████████████████ 100%
+
+■ 완료된 작업
+  ✅ 설계 문서 14개 완성 (docs/)
+  ✅ 백엔드: 26개 모델, 22개 스키마, 21개 레포지토리, 23개 라우터
+  ✅ 통합 연동 15개: Ecount, NineUnited, 관세청, GitHub, GSheets, S3
+  ✅ ops-web 11개 목록/등록 페이지 + 3개 상세 페이지 + 모바일 반응형
+  ✅ arki-web 26개 목록/등록 페이지 + 11개 상세/수정 페이지 + 모바일 반응형
+  ✅ Docker 배포 인프라 (Dockerfile, docker-compose, Nginx, GitHub Actions CI/CD)
+  ✅ 초기 데이터 시드 스크립트 (5개 계정 + 샘플 데이터)
+  ✅ api.ts 버그 수정 (authApi 중복 제거) + 전 리소스 get() 메서드 추가
+  ✅ 대시보드 차트 3종 (AreaChart/PieChart/BarChart, recharts)
+  ✅ CSV 내보내기 6개 페이지 (Excel 호환 UTF-8 BOM)
+  ✅ NotificationBell 컴포넌트 (polling 기반 실시간 알림)
+  ✅ 모바일 반응형 레이아웃 (arki-web + ops-web 공통 적용)
+
+■ 남은 작업
+  □ 프로덕션 환경변수 설정 (API 키, DB URL, 도메인)
+  □ 외부 API 키 발급 (Ecount, 나인유나이티드, UNI-PASS, GitHub PAT, GCP)
+  □ 다국어(i18n) 지원 (선택)
+
+■ 실행 방법 (로컬 개발)
+  docker compose up -d
+  python scripts/seed.py
+  → ops: http://localhost:3000
+  → arki: http://localhost:3001
+  → api: http://localhost:8000/docs
+
+■ 초기 로그인
+  super_admin: admin@arkistore.com / Admin1234!
+
+================================================================
+최종 업데이트: 2026-03-13 (100% 완성)
+================================================================

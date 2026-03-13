@@ -1,0 +1,15 @@
+export type ProjectStatus = "active" | "paused" | "archived";
+export type OperationMode = "normal" | "manual_support" | "agent_enabled" | "hybrid";
+export type Environment = "development" | "staging" | "production";
+export type SiteType = "main_dashboard" | "logistics" | "sales" | "store_manager";
+export type IssueStatus = "new" | "grouped" | "triaged" | "github_created" | "resolved" | "ignored";
+export type InventoryStatus = "normal" | "low_stock" | "out_of_stock" | "inbound_pending";
+export type CustomerGrade = "normal" | "repeat" | "vip";
+export type LeadStatus = "new" | "in_progress" | "converted" | "closed" | "dropped";
+export type ContractStatus = "draft" | "signed" | "confirmed" | "cancelled";
+export type PurchaseRequestStatus = "requested" | "reviewed" | "approved" | "rejected" | "converted_to_order";
+export type PurchaseOrderStatus = "created" | "ordered" | "invoiced" | "shipped" | "completed" | "cancelled";
+export type PaymentStatus = "unpaid" | "partially_paid" | "paid";
+export type DeliveryStatus = "scheduled" | "confirmed" | "in_transit" | "completed" | "delayed" | "cancelled";
+export type SlotStatus = "open" | "limited" | "full" | "closed";
+export type UserRole = "super_admin" | "ops_admin" | "arki_logistics" | "arki_sales" | "arki_store_manager" | "support_operator";

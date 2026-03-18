@@ -168,13 +168,13 @@ def upgrade() -> None:
         sa.Column("main_url", sa.String(500), nullable=False),
         sa.Column(
             "status",
-            sa.Enum("active", "paused", "archived", name="projectstatus"),
+            projectstatus,
             nullable=False,
             server_default="active",
         ),
         sa.Column(
             "operation_mode",
-            sa.Enum("normal", "manual_support", "agent_enabled", "hybrid", name="operationmode"),
+            operationmode,
             nullable=False,
             server_default="normal",
         ),
@@ -206,7 +206,7 @@ def upgrade() -> None:
         sa.Column("remaining_capacity", sa.Integer, nullable=False),
         sa.Column(
             "slot_status",
-            sa.Enum("open", "limited", "full", "closed", name="slotstatus"),
+            slotstatus,
             nullable=False,
             server_default="open",
         ),
@@ -257,10 +257,7 @@ def upgrade() -> None:
         sa.Column("site_url", sa.String(500), nullable=False),
         sa.Column(
             "site_type",
-            sa.Enum(
-                "main_dashboard", "logistics", "sales", "store_manager",
-                name="sitetype",
-            ),
+            sitetype,
             nullable=False,
         ),
         sa.Column("is_enabled", sa.Boolean, nullable=False, server_default=sa.text("true")),
@@ -293,7 +290,7 @@ def upgrade() -> None:
         sa.Column("source_channel", sa.String(100), nullable=True),
         sa.Column(
             "grade",
-            sa.Enum("normal", "repeat", "vip", name="customergrade"),
+            customergrade,
             nullable=False,
             server_default="normal",
         ),
@@ -349,7 +346,7 @@ def upgrade() -> None:
         sa.Column("assigned_to", postgresql.UUID(as_uuid=True), nullable=True),
         sa.Column(
             "lead_status",
-            sa.Enum("new", "in_progress", "converted", "closed", "dropped", name="leadstatus"),
+            leadstatus,
             nullable=False,
             server_default="new",
         ),
@@ -379,10 +376,7 @@ def upgrade() -> None:
         sa.Column("last_seen_at", sa.DateTime(timezone=True), nullable=False),
         sa.Column(
             "group_status",
-            sa.Enum(
-                "new", "grouped", "triaged", "github_created", "resolved", "ignored",
-                name="issuestatus",
-            ),
+            issuestatus,
             nullable=False,
             server_default="new",
         ),
@@ -445,15 +439,12 @@ def upgrade() -> None:
         sa.Column("project_code", sa.String(50), nullable=False),
         sa.Column(
             "site_type",
-            sa.Enum(
-                "main_dashboard", "logistics", "sales", "store_manager",
-                name="sitetype",
-            ),
+            sitetype,
             nullable=False,
         ),
         sa.Column(
             "environment",
-            sa.Enum("development", "staging", "production", name="environment"),
+            environment,
             nullable=False,
         ),
         sa.Column("app_version", sa.String(50), nullable=False),
@@ -464,10 +455,7 @@ def upgrade() -> None:
         sa.Column("user_context", postgresql.JSONB, nullable=True),
         sa.Column(
             "report_status",
-            sa.Enum(
-                "new", "grouped", "triaged", "github_created", "resolved", "ignored",
-                name="issuestatus",
-            ),
+            issuestatus,
             nullable=False,
             server_default="new",
         ),
@@ -496,7 +484,7 @@ def upgrade() -> None:
         sa.Column("project_code", sa.String(50), nullable=False),
         sa.Column(
             "environment",
-            sa.Enum("development", "staging", "production", name="environment"),
+            environment,
             nullable=False,
         ),
         sa.Column("app_version", sa.String(50), nullable=False),
@@ -545,7 +533,7 @@ def upgrade() -> None:
         sa.Column("site_id", postgresql.UUID(as_uuid=True), nullable=True),
         sa.Column(
             "environment",
-            sa.Enum("development", "staging", "production", name="environment"),
+            environment,
             nullable=False,
         ),
         sa.Column("version_tag", sa.String(100), nullable=False),
@@ -574,7 +562,7 @@ def upgrade() -> None:
         sa.Column("job_type", sa.String(50), nullable=False, server_default="export"),
         sa.Column(
             "job_status",
-            sa.Enum("pending", "running", "completed", "failed", name="syncjobstatus"),
+            syncjobstatus,
             nullable=False,
             server_default="pending",
         ),
@@ -609,7 +597,7 @@ def upgrade() -> None:
         sa.Column("deposit_amount", sa.Numeric(14, 2), nullable=True),
         sa.Column(
             "contract_status",
-            sa.Enum("draft", "signed", "confirmed", "cancelled", name="contractstatus"),
+            contractstatus,
             nullable=False,
             server_default="draft",
         ),
@@ -651,10 +639,7 @@ def upgrade() -> None:
         sa.Column("ladder_required", sa.Boolean, nullable=False, server_default=sa.text("false")),
         sa.Column(
             "delivery_status",
-            sa.Enum(
-                "scheduled", "confirmed", "in_transit", "completed", "delayed", "cancelled",
-                name="deliverystatus",
-            ),
+            deliverystatus,
             nullable=False,
             server_default="scheduled",
         ),
@@ -716,10 +701,7 @@ def upgrade() -> None:
         sa.Column("expected_inbound_date", sa.Date, nullable=True),
         sa.Column(
             "inventory_status",
-            sa.Enum(
-                "normal", "low_stock", "out_of_stock", "inbound_pending",
-                name="inventorystatus",
-            ),
+            inventorystatus,
             nullable=False,
             server_default="normal",
         ),
@@ -746,10 +728,7 @@ def upgrade() -> None:
         sa.Column("request_source", sa.String(100), nullable=False),
         sa.Column(
             "request_status",
-            sa.Enum(
-                "requested", "reviewed", "approved", "rejected", "converted_to_order",
-                name="purchaserequeststatus",
-            ),
+            purchaserequeststatus,
             nullable=False,
             server_default="requested",
         ),
@@ -802,16 +781,13 @@ def upgrade() -> None:
         sa.Column("total_amount", sa.Numeric(14, 2), nullable=False, server_default="0"),
         sa.Column(
             "payment_status",
-            sa.Enum("unpaid", "partially_paid", "paid", name="paymentstatus"),
+            paymentstatus,
             nullable=False,
             server_default="unpaid",
         ),
         sa.Column(
             "order_status",
-            sa.Enum(
-                "created", "ordered", "invoiced", "shipped", "completed", "cancelled",
-                name="purchaseorderstatus",
-            ),
+            purchaseorderstatus,
             nullable=False,
             server_default="created",
         ),

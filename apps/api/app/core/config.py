@@ -44,7 +44,7 @@ class Settings(BaseSettings):
     GOOGLE_DRIVE_FOLDER_ID: str = ""
 
     # Storage
-    STORAGE_PROVIDER: Literal["s3", "gcs", "local"] = "s3"
+    STORAGE_PROVIDER: Literal["s3", "gcs", "local", "mock"] = "mock"
     STORAGE_BUCKET: str = ""
     STORAGE_REGION: str = "ap-northeast-2"
     STORAGE_ACCESS_KEY: str = ""

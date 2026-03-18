@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # pip 업그레이드 + wheel 설치
-RUN pip install --upgrade pip wheel
+RUN pip install --upgrade pip wheel setuptools
 
 # 패키지 먼저 복사 (레이어 캐시 활용)
 COPY pyproject.toml ./
@@ -57,6 +57,6 @@ CMD ["gunicorn", "app.main:app", \
      "--workers", "4", \
      "--bind", "0.0.0.0:8000", \
      "--timeout", "120", \
-     "--keepalive", "5", \
+     "--keep-alive", "5", \
      "--access-logfile", "-", \
      "--error-logfile", "-"]

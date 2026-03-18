@@ -273,3 +273,14 @@ pytest tests/ -v --cov=app --cov-report=term-missing
 ## 라이선스
 
 Private — Arkistore / JH 내부 사용 전용
+
+---
+
+## 📊 개발 현황 <!-- jh-progress -->
+
+| 항목 | 내용 |
+|------|------|
+| **진행률** | `████████████████████` **100%** |
+| **레포** | [arkistore_system](https://github.com/jaeha81/arkistore_system) |
+
+> 진행률: 100%

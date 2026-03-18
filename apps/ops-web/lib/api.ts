@@ -18,10 +18,9 @@ export const apiClient = axios.create({
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // TODO: 로그인 활성화 시 아래 주석 해제
-    // if (error.response?.status === 401) {
-    //   window.location.href = "/login";
-    // }
+    if (error.response?.status === 401) {
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );

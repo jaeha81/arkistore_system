@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LogOut, Menu, User } from "lucide-react";
 import { authApi } from "../../lib/api";
@@ -11,6 +12,17 @@ interface HeaderProps {
 
 export default function Header({ onMenuClick }: HeaderProps) {
   const router = useRouter();
+  const [userName, setUserName] = useState<string>("");
+
+  useEffect(() => {
+    authApi
+      .me()
+      .then((res) => {
+        const data = res.data?.data;
+        setUserName(data?.name ?? data?.email ?? "관리자");
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleLogout() {
     try {
@@ -38,7 +50,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <User className="h-4 w-4" />
-          <span className="hidden sm:inline">관리자</span>
+          <span className="hidden sm:inline">{userName}</span>
         </div>
         <Button variant="ghost" size="sm" onClick={handleLogout}>
           <LogOut className="h-4 w-4" />
